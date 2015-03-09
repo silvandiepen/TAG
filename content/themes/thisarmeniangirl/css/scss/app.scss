@@ -1,0 +1,235 @@
+@import "compass/css3";
+@import "grid";
+@import "_base";
+
+$black: #28200d;
+$brown: #3d372a;
+$darkgray: #555;
+$bg-light: #f2f2f2;
+$text-light: #c3c3c3;
+
+$black25: rgba($black,.25);
+$black50: rgba($black,.50);
+$black75: rgba($black,.75);
+
+$creme: #f7f5f0;
+
+$icon: "yeva";
+
+
+// FOR SMALL
+@include screen(grid-size(mini),grid-size(medium)){ }
+
+// FOR MEDIUM
+@include screen(grid-size(mini),grid-size(big)){ }
+
+
+body{ background: $creme; color: $black; font-family: $main-font, sans-serif; }
+
+h1,h2,h3,h4,h5,h6{ margin: 0; padding: 0; font-weight: normal; }
+h1{ font-family: $main-font; }
+a{ color: inherit; }
+p{ font-size: 1rem; line-height: 1.6rem; }
+.icon{ &:before{ display: inline-block; font-family:$icon; }}
+
+.button{ display: inline-block; padding: 0 20px; font-weight: 700; height: 40px; background: transparent; line-height: 40px; font-size: rem-calc(12px); text-transform: uppercase; position: relative; overflow: hidden; 
+	&.white{ border: 2px solid $white; color: $white; }
+	&.brown{ border: 2px solid $brown; color: $brown; }
+	
+	&:before{ content: attr(data-text); position: absolute; width: 100%; height: 100%; display: block; top: -110%; background: $black; text-align: center; left: 0;  @include transition($transition); border-bottom: 2px solid white; }
+	&:hover{ 
+		&:before{ left: 0px; top: 0px; @include transition($transition); }
+	}
+}
+
+
+/* layout */
+header{
+	height: 40px; 
+	h1{ text-transform: uppercase; height: 100%; line-height: 40px; font-size: rem-calc(20px); color: $orange;
+		.mobile &{ padding-left: 10px; }
+	}
+	a.search{ @extend .icon; display: inline-block; width: 40px; height: 40px; text-align: center; line-height: 40px; position: relative; text-indent: -999em;
+		&:before{ content:"a"; font-size:rem-calc(24px); @include transition($transition); position: absolute; left: 0px; width: 100%; height: 100%; top: 0px; line-height: 40px; text-align: center; text-indent: 0px; }
+		&:hover{ &:before{ font-size: rem-calc(28px); @include transition($transition); }}
+	}
+	&.stick{ position: fixed; top: 0px; background: white; width: 100%; z-index: 1000; @include box-shadow(0 0 3px 0 rgba(black,0.3)); }
+}
+
+section{ position: relative; @extend .row;
+	>.row{ background: $white; }
+	&#header{	height: 420px; 
+		.slider{ width: 100%; height: 100%; position: absolute;
+			.slick-list,.slick-track{ height: 100%; }
+			.slide{ width: 100%; height: 100%; @include background-size(cover); background-repeat: no-repeat; background-position: center center; 
+				h2{ color: white; margin-top: 40px; width: 100%; padding-right: 20px; font-size: rem-calc(48px); font-family: $header-font; line-height: 90%; }
+				a.button{ margin-top: 20px; }
+			}
+		}
+		.mobile &{ display: none; }
+	}
+	&#articles{  
+		
+		article{ width: 100%; display: block; clear: both; border-bottom: 2px solid $creme; padding: 20px;
+			div.image{ padding: 15px 0; }
+			a.image{ display: inline-block; width: 100%; height: 120px; margin: 0; @include background-size(cover); background-repeat: no-repeat; background-position: center center; }
+			h3,p{ display: inline-block; }
+			h3{ font-family: $header-font; font-size: rem-calc(24px); }
+			p{ 
+				a{ text-transform: uppercase; font-weight: $bold; color: $black25; font-size: rem-calc(12px); position: relative; top: 2px; 
+					&:hover{ color: $black50; }
+				}
+			}
+			div.content{ padding: 15px;}
+			@include root('.mobile'){
+				article{
+					padding: 0px; content:"articletest";
+					div.image{ padding: 0; border-top: 1px solid white; }
+					a.image{ height: 240px; }
+				}
+			}
+		}
+		
+		.profile{ padding: 35px 20px 20px 20px; position: relative; border-left: 2px solid $creme;
+			a.profile-image{ display: block; border: 3px solid $creme; @include border-radius(50%); overflow: hidden; width: 100px; height: 100px; position: absolute; left: -2px; top: 20px; @include transform(translateY(-50%) translateX(-50%)); 
+				img{ min-height: 100%; min-width: 100%; }
+			}
+			h2{ font-family: $header-font; font-size: rem-calc(24px); padding-left: 35px;  }
+			p{ }
+			a.yeva{ display: block; width: 100%; height: 60px; background-image:url('../img/yeva-black.svg'); @include background-size(contain); background-position: center center; background-repeat: no-repeat; text-indent: -999em; opacity: 0.5; 
+				&:hover{ opacity: 0.8; }
+			}
+			
+			@include root('.mobile'){
+				.profile{
+					a.profile-image{ @include transform(none); position: relative; display: inline-block; top: 0px; }
+					h2{ position: relative; padding-left: 120px; top: -100px; height: 100px; line-height: 100px; margin-bottom: -100px; }
+				}
+			}
+		}
+		
+	}
+	
+	&#instagram{ min-height: 500px; background: $red; 
+		#instafeed{ @extend .row;
+			a{ @extend .small-6, .smedium-3, .normal-2; display: inline-block;  
+				img{ max-width: 100%; }
+			}
+		}
+		
+	}
+	&#content{  
+		/* 	main	 */
+		.main-column{padding: 0 40px; 
+			.mobile &{ padding: 0 20px; }
+			.image.full{ margin:30px -40px; @include calc('width','100% + 80px'); display: block; overflow: hidden;
+				.mobile &{ margin: 30px -20px; @include calc('width','100% + 40px');  }
+				&.header-image{ margin-top: 0px; }
+				img{ @include transition($transition); }
+				&:hover{ img{ @include transform(scale(1.05)); @include transition($transition); }}
+			}
+			div.head{ text-align: center; margin-bottom: 20px;
+				h2{ font-family: $header-font, serif; font-weight: 100; font-size: rem-calc(36px); }
+				span.date{ text-transform: uppercase; font-weight: 700; color: $black25; font-size: rem-calc(14px); }
+			}
+			p{ line-height: rem-calc(24px); }
+		}
+		
+/* 		footer/side */
+	
+	}
+}
+
+footer{ background: $black; padding: 20px; color: rgba($creme,0.5); font-size: rem-calc(12px); 
+	
+}
+
+
+
+// FOR SMALL
+@include screen(grid-size(mini),grid-size(xlarge)){
+body{ background: orange !important; }
+}
+
+
+.footer-column{
+	.search{ background: $black; position: relative; overflow: hidden; width: 100%; height: 0px; margin-bottom: 10px; @include transition($transition);
+		&.active{ height: 40px; @include transition($transition); }
+		input[type=text]{ border: none; @include box-shadow(none); position: absolute; width: 100%; height: 40px; text-align: center; background: none; color: white; padding: 0 10px; 
+			.mobile &{ position: absolute; top: 50%; width: 80%; margin-left: 10%; height: 80px; @include transform(translateY(-50%)); padding: 0 30px; font-size: rem-calc(32px); }
+		}
+		input[type=submit]{ display: none; width: 100px; height:100px; position: absolute; @include calc('top','50% + 40px'); left: 50%; margin-left: -50px; border: none; background: none; color: white; font-family:$icon; font-size: rem-calc(48px);
+			.mobile &{ display: block; }
+		}
+		@include root('.mobile'){ background: rgba($black,0.85); content:"test";
+			.search{ height: 100%; display: none; -webkit-overflow-scrolling: touch; position: fixed; top: 0px;
+				&.active{ position: fixed; display: block; top: 0px; background: $black75; width: 100vw; height: 100vh; }
+			}
+		}		
+	}	
+	ul{ padding: 15px 20px 15px 20px;
+		li{
+			&.top{ font-size: rem-calc(12px); font-weight: 700; color: $black25; text-transform: uppercase; }
+			a{ line-height: rem-calc(32px); display: inline-block; position: relative; 
+				&:after{ content:""; display: block; width: 0%; height: 2px; position: absolute; bottom: 5px; background: $black25; @include transition($transition);   }
+				&:hover{ &:after{ width: 100%; @include transition($transition); }}
+				&.icon{ &:before{ @extend .icon; margin-right: 3px; color: $black25; position: relative; top: 2px; }
+					&.fb{ &:before{ content:"q"; }}
+					&.tw{ &:before{ content:"g"; }}
+					&.tu{ &:before{ content:"i"; }}
+					&.in{ &:before{ content:"e"; }}
+					&.vk{ &:before{ content:"m"; }}
+					&.yt{ &:before{ content:"o"; }}
+					&.pi{ &:before{ content:"c"; }}
+				}
+			}		
+		}
+		@include root('.mobile,.mobile.home'){
+			li{ 
+				a { color: white; 
+					&:after{ background: rgba($white,0.2); }
+				}
+			}
+		}
+	}	
+}
+
+
+/* Slider */
+
+.slick-slider { position: relative; display: block; }
+.slick-list { position: relative; overflow: hidden; display: block; margin: 0; padding: 0;
+    &:focus { outline: none; }
+    .slick-loading & { background: #fff slick-image-url("ajax-loader.gif") center center no-repeat; }
+    &.dragging { cursor: pointer; cursor: hand; }
+}
+.slick-slider .slick-track,
+.slick-slider .slick-list { @include transform(translate3d(0, 0, 0)); }
+
+.slick-track{ position: relative; left: 0; top: 0; display: block;
+  &:before, &:after { content: ""; display: table; }
+	&:after {clear: both;}
+ .slick-loading &{ visibility: hidden; }
+}
+.slick-slide { float: left; height: 100%; min-height: 1px;
+    
+ [dir="rtl"] & { float: right; }
+    img{ display: block; }
+    &.slick-loading img{ display: none; }
+    display: none;
+    &.dragging img{ pointer-events: none; }
+    .slick-initialized &{ display: block; }
+    .slick-loading &{ visibility: hidden; }
+    .slick-vertical &{ display: block; height: auto; border: 1px solid transparent; }
+}
+
+/* Dots */
+
+.slick-dots {position: absolute; list-style: none; bottom: 0px; display: block; text-align: left; width: 100%; padding: 20px; 
+	li { position: relative; display: inline-block; height: 8px; width: 8px; margin: 0 5px; cursor: pointer; padding: 0;
+		button { border: 0; background: transparent; display: block; height: 100%; width: 100%; outline: none; line-height: 0; font-size: 0; color: transparent; padding: 5px; cursor: pointer; @include border-radius(50%); background: $brown;
+			&:hover, &:focus { opacity: .5; }
+		}
+		&.slick-active button { background: $creme; }
+	}
+}

@@ -1,0 +1,89 @@
+@function strip-unit($num) {
+  @return $num / ($num * 0 + 1);
+}
+
+@function convert-to-rem($value, $base-value: $rem-base)  {
+  $value: strip-unit($value) / strip-unit($base-value) * 1rem;
+  @if ($value == 0rem) { $value: 0; } // Turn 0rem into 0
+  @return $value;
+}
+
+@function rem-calc($values, $base-value: $base-fontsize) {
+	$max: length($values);
+	@if $max == 1 {
+		@return convert-to-rem(nth($values, 1), $base-value);
+	}
+
+	$remValues: ();
+
+	@for $i from 1 through $max {
+		$remValues: append($remValues, convert-to-rem(nth($values, $i), $base-value));
+	}
+
+	@return $remValues;
+}
+
+@function calculateRem($size) {
+  $remSize: $size / #{$base-fontsize}px;
+  @return $remSize * 1rem;
+}
+
+
+@function color($value){
+	$max: length($value);
+	@if $max == 1 {
+		$color: map-get($basic-colors, nth($value,1));
+		@return $color;
+	}
+	@else {
+		$color: map-get($basic-colors, nth($value,1));
+		
+		@if nth($value,2) == "darken" { 
+			@return darken($color,nth($value,3));
+		}		
+		@else if nth($value,2) == "lighten" {
+			@return lighten($color,nth($value,3));
+		}		
+		@else if nth($value,2) == "saturate" {
+			@return saturate($color,nth($value,3));
+		}		
+		@else if nth($value,2) == "desaturate" {
+			@return desaturate($color,nth($value,3));
+		}
+		@else if nth($value,2) == "desaturate" {
+			@return desaturate($color,nth($value,3));
+		}
+		@else if nth($value,2) == "adjust-hue" {
+			@return adjust-hue($color,nth($value,3));
+		}
+		@else if nth($value,2) == "rgba" {
+			@return rgba($color,nth($value,3));
+		}
+		@else if nth($value,2) == "tint" {
+			@return tint($color,nth($value,3));
+		}
+		@else if nth($value,2) == "shade" {
+			@return shade($color,nth($value,3));
+		}
+		@return $color;
+	}	
+}
+
+/*
+@function color($value){
+	$color: map-get($basic-colors, $value);
+	@return $color;
+}
+*/
+
+
+@function grid-size($value){
+	$size: map-get($grid-size,$value);
+	@return $size;
+}
+
+
+@mixin font-size($size) {
+  font-size: $size;
+  font-size: calculateRem($size);
+}

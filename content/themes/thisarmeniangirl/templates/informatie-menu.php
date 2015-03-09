@@ -1,0 +1,1 @@
+<li class="{name} {color}"><a href="#{name}">{title}</a></li>

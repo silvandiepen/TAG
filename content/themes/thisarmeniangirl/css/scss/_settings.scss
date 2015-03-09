@@ -1,0 +1,84 @@
+@import "media_queries";
+
+
+$base-fontsize: 16;
+$base-radius: .3;
+$base-radius-rem: .3rem;
+$base-padding: 3;
+$base-padding-rem: 3rem;
+
+// Basics
+$transition: .3s;
+$light: 100;
+$regular: 300;
+$medium: 500;
+$bold: 700;
+
+// GRID
+
+$grid-columns: 12;
+$grid-spacing: 0;
+$half-grid-spacing: $grid-spacing / 2;
+
+$auto-styling: true;
+$auto-imagesize: true;
+$grid-dev: false;
+$grid-forms: false;
+$grid-max-width: 1080;
+/*
+
+$grid-mini: 0,320;
+$grid-small: 321,480;
+$grid-smedium: 481,640;
+$grid-medium: 641,800;
+$grid-normal: 801,960;
+$grid-big: 961,1024;
+$grid-large: 1025,1280;
+$grid-xlarge: 1281,1440;
+$grid-xxlarge: 1441,9999;
+*/
+
+$grid-sizes:
+		(mini 0 320 red)
+		(small 321 480 yellow)
+		(smedium 481 640 purple)
+		(medium 641 800 blue)
+		(normal 801 960 brown)
+		(big 961 1024 magenta)
+		(large 1025 1280 yellow)
+		(xlarge 1281 1440 red)
+		(xxlarge 1441 1600 yellow)
+		(xxxlarge 1601 9999 gray);
+
+$grid-size: (
+	mini: 320,
+	small: 480,
+	smedium: 640,
+	medium: 800,
+	normal: 960,
+	big: 1024,
+	large: 1280,
+	xlarge: 1440,
+	xxlarge: 1600	);
+
+
+//PRIOS
+
+$priority-none: white;
+$priority-attention: yellow;
+$priority-priority: orange;
+$priority-urgent: red;
+
+
+$iconset: "peermatch";
+
+@mixin input-placeholder {
+  &.placeholder { @content; }
+  &:-moz-placeholder { @content; }
+  &::-moz-placeholder { @content; }
+  &:-ms-input-placeholder { @content; }
+  &::-webkit-input-placeholder { @content; }
+}
+*{-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+hr.clear { clear:both; border:none; height:0; margin:0; padding:0; background:none; color:none; }
+a{ outline:none; -moz-outline:none; }
